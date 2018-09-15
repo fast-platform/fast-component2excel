@@ -1,8 +1,8 @@
 {
-  "name": "xl",
-  "version": "0.0.0",
+  "name": "fast-component2excel",
+  "version": "0.0.1",
   "description": "xl",
-  "main": "app.js",
+  "main": "index.js",
   "author": {
     "name": "shelikhovskyy"
   },
