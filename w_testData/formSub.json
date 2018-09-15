@@ -1,0 +1,27 @@
+﻿[
+  {
+    "owner": "5adda24539a94b09b5f4155e",
+    "roles": [],
+    "_vid": 0,
+    "_fvid": 0,
+    "state": "submitted",
+    "_id": "5b20e0bc42afcc358d69a3cc",
+    "data": {
+      "columnsLabelNumberL1": 9,
+      "columnsLabelNumberL2": 99,
+      "columnsLabelTextL1": "text 1",
+      "columnsLabelNumberL3": 999,
+      "columnsLabelTextL2": "text 2",
+      "columnsLabelSelectL1": "selectL12",
+      "columnsLabelTextL3": "text 3",
+      "columnsLabelSelectL2": "selectL23",
+      "columnsLabelSelectL3": "selectL31",
+      "submit": true
+    },
+    "access": [],
+    "form": "5afd33683d98696a4233ed4f",
+    "externalIds": [],
+    "created": "2018-06-13T09:15:40.151Z",
+    "modified": "2018-06-13T09:15:40.153Z"
+  }
+]

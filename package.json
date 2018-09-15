@@ -1,0 +1,12 @@
+{
+  "name": "xl",
+  "version": "0.0.0",
+  "description": "xl",
+  "main": "app.js",
+  "author": {
+    "name": "shelikhovskyy"
+  },
+  "dependencies": {
+    "xlsx-populate": "^1.17.0"
+  }
+}
