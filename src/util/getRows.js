@@ -9,8 +9,6 @@ function countColumnObjectRows(columns) {
 }
 
 function countTableObjectRows(rows) {
-  console.log('rows', rows);
-
   const tableRows = [];
 
   for (const row of rows) {
@@ -24,20 +22,14 @@ function countTableObjectRows(rows) {
       }
     }
 
-    console.log('row', rowMax);
-
     tableRows.push(Math.max(...rowMax));
-    console.log('max', tableRows);
   }
-
-  console.log('reduced sum', tableRows.reduce((a, b) => a + b, 0));
 
   return tableRows.reduce((a, b) => a + b, 0);
 }
 
-export function getRows(tree, rows) {
+export function getRows(tree, rows = 0) {
   for (const comp of tree) {
-    console.log(comp.type);
     if (
       (comp.type !== 'datagrid') &
       (comp.type !== 'columns') &
@@ -47,12 +39,13 @@ export function getRows(tree, rows) {
     ) {
       rows = rows + 1;
     } else {
-      if (comp.type === 'datagrid' || comp.type === 'editgrid') {
+      if (comp.type === 'datagrid') {
         rows = rows + 1;
+      } else if (comp.type === 'editgrid') {
+        rows = getRows(comp.components, rows);
       } else if (comp.type === 'columns') {
         rows = rows + countColumnObjectRows(comp.columns);
       } else if (comp.type === 'table') {
-        // rows = rows + comp.numRows;
         rows = rows + countTableObjectRows(comp.rows);
       } else if (comp.type === 'fieldset') {
         rows = getRows(comp.components, rows);

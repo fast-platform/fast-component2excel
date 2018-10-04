@@ -14,8 +14,8 @@ export function getShape(json) {
 
   console.log(comps);
 
-  const rowCount = getRows(comps, 0);
-  const colCount = getColumns();
+  const rowCount = getRows(comps);
+  const colCount = getColumns(comps);
 
   console.log(comps, rowCount, colCount);
 }
