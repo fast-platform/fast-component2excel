@@ -44,6 +44,9 @@
     "yargs": "^11.0.0"
   },
   "dependencies": {
-    "bluebird": "^3.5.1"
+    "@stamp/it": "^1.1.0",
+    "bluebird": "^3.5.1",
+    "fast-downloads": "^0.1.0",
+    "xlsx-populate": "^1.17.0"
   }
 }
