@@ -1,3 +1,5 @@
+import BaseComponent from '../components/BaseComponent/BaseComponent';
+
 function countColumnObjectCols(columns) {
   const columnCols = [];
 
@@ -35,7 +37,7 @@ export function getColumns(tree) {
       (comp.type !== 'editgrid') &
       (comp.type !== 'fieldset')
     ) {
-      cols.push(1);
+      cols.push(BaseComponent.baseLength);
     } else {
       if (comp.type === 'fieldset') {
         cols.push(getColumns(comp.components));

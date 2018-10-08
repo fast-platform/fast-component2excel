@@ -1,3 +1,5 @@
+import BaseComponent from '../components/BaseComponent/BaseComponent';
+
 function countColumnObjectRows(columns) {
   let columnRows = [];
 
@@ -37,10 +39,10 @@ export function getRows(tree, rows = 0) {
       (comp.type !== 'editgrid') &
       (comp.type !== 'fieldset')
     ) {
-      rows = rows + 1;
+      rows = rows + BaseComponent.baseWidth;
     } else {
       if (comp.type === 'datagrid') {
-        rows = rows + 1;
+        rows = rows + BaseComponent.baseWidth;
       } else if (comp.type === 'editgrid') {
         rows = getRows(comp.components, rows);
       } else if (comp.type === 'columns') {

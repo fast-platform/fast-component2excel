@@ -1,7 +1,7 @@
 import { getRows } from './getRows';
 import { getColumns } from './getColumns';
 
-export function getShape(json) {
+export async function getShape(json) {
   const components = json.components;
 
   let comps = [];
