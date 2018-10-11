@@ -1,19 +1,14 @@
-function cols() {
-  const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+function toColumnName(num) {
+  let final = '';
 
-  console.log(ALPHABET);
-}
-
-function rows(row) {
-  if (row === 0) {
-    return row + 2;
+  for (let ret = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+    ret = String.fromCharCode(parseInt((num % b) / a, 10) + 65) + ret;
+    final = ret;
   }
 
-  return null;
+  return final;
 }
 
-export default function rowsColsToExcel(row, shape) {
-  // const r = rows(row);
-  // const c = cols(row);
+export default function rowColToExcel(row, col) {
+  return String(toColumnName(col + 1)) + String(row + 1);
 };

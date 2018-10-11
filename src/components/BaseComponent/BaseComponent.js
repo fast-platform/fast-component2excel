@@ -20,6 +20,6 @@ export default stampit({
   },
   statics: {
     baseWidth: 3,
-    baseLength: 3
+    baseLength: 5
   }
 });

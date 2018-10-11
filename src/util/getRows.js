@@ -1,4 +1,6 @@
 import BaseComponent from '../components/BaseComponent/BaseComponent';
+import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
+import isObject from './isObject';
 
 function countColumnObjectRows(columns) {
   let columnRows = [];
@@ -30,31 +32,41 @@ function countTableObjectRows(rows) {
   return tableRows.reduce((a, b) => a + b, 0);
 }
 
-export function getRows(tree, rows = 0) {
-  for (const comp of tree) {
-    if (
-      (comp.type !== 'datagrid') &
-      (comp.type !== 'columns') &
-      (comp.type !== 'table') &
-      (comp.type !== 'editgrid') &
-      (comp.type !== 'fieldset')
-    ) {
-      rows = rows + BaseComponent.baseWidth;
+function checkType(comp, rows) {
+  if (
+    (comp.type !== 'datagrid') &
+    (comp.type !== 'columns') &
+    (comp.type !== 'table') &
+    (comp.type !== 'editgrid') &
+    (comp.type !== 'fieldset')
+  ) {
+    rows = rows + BaseComponent.baseWidth;
+  } else {
+    if (comp.type === 'datagrid') {
+      rows = rows + BaseLayoutComponent.paddingWidth + BaseComponent.baseWidth;
+    } else if (comp.type === 'editgrid') {
+      rows = BaseLayoutComponent.paddingWidth + getRows(comp.components, rows);
+    } else if (comp.type === 'columns') {
+      rows = rows + BaseLayoutComponent.paddingWidth + countColumnObjectRows(comp.columns);
+    } else if (comp.type === 'table') {
+      rows = rows + BaseLayoutComponent.paddingWidth + countTableObjectRows(comp.rows);
+    } else if (comp.type === 'fieldset') {
+      rows = BaseLayoutComponent.paddingWidth + getRows(comp.components, rows);
     } else {
-      if (comp.type === 'datagrid') {
-        rows = rows + BaseComponent.baseWidth;
-      } else if (comp.type === 'editgrid') {
-        rows = getRows(comp.components, rows);
-      } else if (comp.type === 'columns') {
-        rows = rows + countColumnObjectRows(comp.columns);
-      } else if (comp.type === 'table') {
-        rows = rows + countTableObjectRows(comp.rows);
-      } else if (comp.type === 'fieldset') {
-        rows = getRows(comp.components, rows);
-      } else {
-        rows = getRows(comp.components, rows);
-      }
+      rows = getRows(comp.components, rows);
     }
+  }
+
+  return rows;
+}
+
+export function getRows(tree, rows = 0) {
+  if (!isObject(tree)) {
+    for (const comp of tree) {
+      rows = checkType(comp, rows);
+    }
+  } else {
+    rows = checkType(tree, rows);
   }
 
   return rows;

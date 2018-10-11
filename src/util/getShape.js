@@ -2,14 +2,18 @@ import { getRows } from './getRows';
 import { getColumns } from './getColumns';
 
 export async function getShape(json) {
-  const components = json.components;
+  const components = json.type === 'form' ? json.components : json;
 
   let comps = [];
 
-  for (let comp of components) {
-    if (comp.type !== 'button') {
-      comps.push(comp);
+  if (json.type === 'form') {
+    for (let comp of components) {
+      if (comp.type !== 'button') {
+        comps.push(comp);
+      }
     }
+  } else {
+    comps = components;
   }
 
   const rowCount = getRows(comps);

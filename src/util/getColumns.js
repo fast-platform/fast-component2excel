@@ -1,4 +1,7 @@
 import BaseComponent from '../components/BaseComponent/BaseComponent';
+import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
+
+import isObject from './isObject';
 
 function countColumnObjectCols(columns) {
   const columnCols = [];
@@ -7,7 +10,17 @@ function countColumnObjectCols(columns) {
     columnCols.push(getColumns(col.components));
   }
 
-  return columnCols.reduce((a, b) => a + b, 0);
+  return sumArray(columnCols);
+}
+
+function countDatagridCols(tree) {
+  const dataCols = [];
+
+  for (const col of tree) {
+    dataCols.push(getColumns(col));
+  }
+
+  return sumArray(dataCols);
 }
 
 function countTableCols(rows) {
@@ -26,33 +39,46 @@ function countTableCols(rows) {
   return Math.max(...maxCols);
 }
 
-export function getColumns(tree) {
-  const cols = [];
+function sumArray(array) {
+  return array.reduce((a, b) => a + b, 0);
+}
 
-  for (const comp of tree) {
-    if (
-      (comp.type !== 'table') &
-      (comp.type !== 'columns') &
-      (comp.type !== 'datagrid') &
-      (comp.type !== 'editgrid') &
-      (comp.type !== 'fieldset')
-    ) {
-      cols.push(BaseComponent.baseLength);
+function checkType(comp, cols) {
+  if (
+    (comp.type !== 'table') &
+    (comp.type !== 'columns') &
+    (comp.type !== 'datagrid') &
+    (comp.type !== 'editgrid') &
+    (comp.type !== 'fieldset')
+  ) {
+    cols.push(BaseComponent.baseLength);
+  } else {
+    if (comp.type === 'fieldset') {
+      cols.push(BaseLayoutComponent.paddingLength + getColumns(comp.components));
+    } else if (comp.type === 'columns') {
+      cols.push(BaseLayoutComponent.paddingLength + countColumnObjectCols(comp.columns));
+    } else if (comp.type === 'editgrid') {
+      console.log('editgrid', comp.components);
+      cols.push(BaseLayoutComponent.paddingLength + getColumns(comp.components));
+    } else if (comp.type === 'datagrid') {
+      cols.push(BaseLayoutComponent.paddingLength + countDatagridCols(comp.components));
+    } else if (comp.type === 'table') {
+      cols.push(BaseLayoutComponent.paddingLength + countTableCols(comp.rows));
     } else {
-      if (comp.type === 'fieldset') {
-        cols.push(getColumns(comp.components));
-      } else if (comp.type === 'columns') {
-        cols.push(countColumnObjectCols(comp.columns));
-      } else if (comp.type === 'editgrid') {
-        cols.push(getColumns(comp.components));
-      } else if (comp.type === 'datagrid') {
-        cols.push(getColumns(comp.components));
-      } else if (comp.type === 'table') {
-        cols.push(countTableCols(comp.rows));
-      } else {
-        cols.push(getColumns(comp.components));
-      }
+      cols.push(getColumns(comp.components));
     }
+  }
+
+  return cols;
+}
+
+export function getColumns(tree, cols = []) {
+  if (!isObject(tree)) {
+    for (const comp of tree) {
+      cols = checkType(comp, cols);
+    }
+  } else {
+    cols = checkType(tree, cols);
   }
 
   return Math.max(...cols);
