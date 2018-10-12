@@ -54,16 +54,15 @@ function checkType(comp, cols) {
     cols.push(BaseComponent.baseLength);
   } else {
     if (comp.type === 'fieldset') {
-      cols.push(BaseLayoutComponent.paddingLength + getColumns(comp.components));
+      cols.push(BaseLayoutComponent.marginLength + getColumns(comp.components));
     } else if (comp.type === 'columns') {
-      cols.push(BaseLayoutComponent.paddingLength + countColumnObjectCols(comp.columns));
+      cols.push(BaseLayoutComponent.marginLength + countColumnObjectCols(comp.columns));
     } else if (comp.type === 'editgrid') {
-      console.log('editgrid', comp.components);
-      cols.push(BaseLayoutComponent.paddingLength + getColumns(comp.components));
+      cols.push(BaseLayoutComponent.marginLength + getColumns(comp.components));
     } else if (comp.type === 'datagrid') {
-      cols.push(BaseLayoutComponent.paddingLength + countDatagridCols(comp.components));
+      cols.push(BaseLayoutComponent.marginLength + countDatagridCols(comp.components));
     } else if (comp.type === 'table') {
-      cols.push(BaseLayoutComponent.paddingLength + countTableCols(comp.rows));
+      cols.push(BaseLayoutComponent.marginLength + countTableCols(comp.rows));
     } else {
       cols.push(getColumns(comp.components));
     }

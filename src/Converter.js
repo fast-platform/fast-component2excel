@@ -7,17 +7,10 @@ import stampit from '@stamp/it';
 export default stampit({
   methods: {
     async convertJsonToFile(json) {
-      // const shape = await getShape(json);
-
       const layout = await buildLayout(json);
 
       console.log(layout);
 
-      // console.log(shape);
-
-      // calculateUsedRange()
-      console.log(json);
-      // const range = await buildShape(json, shape);
       const range = '';
       const shape = '';
 

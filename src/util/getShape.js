@@ -16,11 +16,20 @@ export async function getShape(json) {
     comps = components;
   }
 
+  const keyComp = 'components';
+  const keyCols = 'columns';
+  const keyRows = 'rows';
+
+  const { [keyComp]: a, [keyCols]: b, [keyRows]: c, ...rest } = comps; // eslint-disable-line no-unused-vars
+
   const rowCount = getRows(comps);
   const colCount = getColumns(comps);
 
   return {
-    'rows': rowCount,
-    'cols': colCount
+    ...rest,
+    shape: {
+      rows: rowCount,
+      cols: colCount
+    }
   };
 }

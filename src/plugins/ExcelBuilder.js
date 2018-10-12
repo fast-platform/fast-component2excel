@@ -2,8 +2,6 @@ import stampit from '@stamp/it';
 import XlsxPopulate from 'xlsx-populate';
 import Download from 'fast-downloads';
 
-import rowColToExcel from '../util/rowsColsToExcel';
-
 // import TextFieldComponent from '../components/TextFieldComponent/TextFieldComponent';
 
 const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
@@ -24,8 +22,6 @@ export default stampit({
       XlsxPopulate.fromBlankAsync()
         .then(workbook => {
           const sheet = workbook.sheet(0);
-
-          console.log(rowColToExcel(0, 0));
 
           for (const comp of this.json.components) {
             this.renderComponent(comp, sheet);

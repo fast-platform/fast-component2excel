@@ -3,8 +3,8 @@ import BaseComponent from '../BaseComponent/BaseComponent';
 
 export default stampit(BaseComponent, {
   statics: {
-    paddingWidth: 2,
-    paddingLength: 2
+    marginWidth: 2,
+    marginLength: 2
   },
   methods: {
     render() {

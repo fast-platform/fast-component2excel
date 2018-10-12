@@ -43,15 +43,15 @@ function checkType(comp, rows) {
     rows = rows + BaseComponent.baseWidth;
   } else {
     if (comp.type === 'datagrid') {
-      rows = rows + BaseLayoutComponent.paddingWidth + BaseComponent.baseWidth;
+      rows = rows + BaseLayoutComponent.marginWidth + BaseComponent.baseWidth;
     } else if (comp.type === 'editgrid') {
-      rows = BaseLayoutComponent.paddingWidth + getRows(comp.components, rows);
+      rows = BaseLayoutComponent.marginWidth + getRows(comp.components, rows);
     } else if (comp.type === 'columns') {
-      rows = rows + BaseLayoutComponent.paddingWidth + countColumnObjectRows(comp.columns);
+      rows = rows + BaseLayoutComponent.marginWidth + countColumnObjectRows(comp.columns);
     } else if (comp.type === 'table') {
-      rows = rows + BaseLayoutComponent.paddingWidth + countTableObjectRows(comp.rows);
+      rows = rows + BaseLayoutComponent.marginWidth + countTableObjectRows(comp.rows);
     } else if (comp.type === 'fieldset') {
-      rows = BaseLayoutComponent.paddingWidth + getRows(comp.components, rows);
+      rows = BaseLayoutComponent.marginWidth + getRows(comp.components, rows);
     } else {
       rows = getRows(comp.components, rows);
     }
