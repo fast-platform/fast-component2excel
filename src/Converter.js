@@ -1,6 +1,4 @@
-// import { getShape } from './util/getShape';
 import buildLayout from './util/buildLayout';
-// import { buildShape } from './util/buildShape';
 import ExcelBuilder from './plugins/ExcelBuilder';
 import stampit from '@stamp/it';
 

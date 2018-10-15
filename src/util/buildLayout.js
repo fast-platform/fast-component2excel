@@ -1,6 +1,6 @@
 import { getShape } from './getShape';
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
-import convertLayoutToExcel from './convertLayoutToExcel';
+import convertLayoutToExcelCoord from './convertLayoutToExcelCoord';
 
 function getDimensions(layout) {
   return {
@@ -97,6 +97,8 @@ export default async function buildLayout(json) {
   let layout = {};
 
   for (const comp of json.components) {
+    if (comp.type === 'button') break;
+
     const shape = await getShape(comp);
 
     if (comp.hasOwnProperty('components')) {
@@ -117,7 +119,7 @@ export default async function buildLayout(json) {
   layout = {...getDimensions(form), components: form};
 
   await expandColumns(layout.components, layout.shape.cols);
-  await convertLayoutToExcel(layout);
+  await convertLayoutToExcelCoord(layout);
 
   return layout;
 }
