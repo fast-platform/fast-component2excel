@@ -1,3 +1,5 @@
+import positionBuilder from './positionBuilder';
+
 function toColumnName(num) {
   let final = '';
 
@@ -13,54 +15,44 @@ function rowColToExcel(row, col) {
   return String(toColumnName(col + 1)) + String(row + 1);
 }
 
-function rangeStringFormatter(row1, col1, row2, col2) {
+export function rangeStringFormatter(row1, col1, row2, col2) {
   return rowColToExcel(row1, col1) + ':' + rowColToExcel(row2, col2);
 }
 
 async function convertComponentToExcelCoord(component, previousComponent, parentComponent) {
   if (previousComponent === parentComponent) {
-    console.log(parentComponent);
-
-    component.position = {
-      row: previousComponent.position.row,
-      col: previousComponent.position.col,
-      range: rangeStringFormatter(
-        previousComponent.position.row,
-        previousComponent.position.col,
-        component.shape.rows,
-        component.shape.cols
-      )
-    };
+    if (previousComponent.type === 'form') {
+      component.position = await positionBuilder(component, previousComponent, 'firstInForm');
+    } else {
+      component.position = await positionBuilder(component, previousComponent, 'firstInLayout');
+    }
   } else {
     if (
-      (parentComponent.type !== 'fieldset') &
       (parentComponent.type !== 'datagrid') &
       (parentComponent.type !== 'editgrid') &
       (parentComponent.type !== 'panel') &
       (parentComponent.type !== 'table')
     ) {
-      component.position = {
-        row: previousComponent.position.row + previousComponent.shape.rows,
-        col: previousComponent.position.col,
-        range: rangeStringFormatter(
-          previousComponent.position.row + previousComponent.shape.rows,
-          previousComponent.position.col,
-          previousComponent.position.row + previousComponent.shape.rows + component.shape.rows - 1,
-          component.shape.cols
-        )
-      };
+      component.position = await positionBuilder(component, previousComponent, 'below');
     }
   }
 
+  if (
+    (component.type === 'fieldset') |
+    (component.type === 'datagrid') |
+    (component.type === 'editgrid') |
+    (component.type === 'panel')
+  ) {
+    previousComponent = component;
+    for (const comp of component.components) {
+      previousComponent = await convertComponentToExcelCoord(comp, previousComponent, component);
+    }
+  }
   return component;
 }
 
 export default async function convertLayoutToExcelCoord(layout) {
-  layout.position = {
-    row: 1,
-    col: 1,
-    range: rangeStringFormatter(1, 1, layout.shape.rows, layout.shape.cols)
-  };
+  layout.position = await positionBuilder(layout, {}, 'base');
 
   let previousComponent = layout;
   const parentComponent = layout;
@@ -68,8 +60,6 @@ export default async function convertLayoutToExcelCoord(layout) {
   for (const comp of layout.components) {
     previousComponent = await convertComponentToExcelCoord(comp, previousComponent, parentComponent);
   }
-
-  console.log(layout);
 
   return layout;
 }
