@@ -2,6 +2,7 @@ import BaseComponent from '../components/BaseComponent/BaseComponent';
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
 
 import isObject from './isObject';
+import sumArray from './sumArray';
 
 function countColumnObjectCols(columns) {
   const columnCols = [];
@@ -37,10 +38,6 @@ function countTableCols(rows) {
   }
 
   return Math.max(...maxCols);
-}
-
-function sumArray(array) {
-  return array.reduce((a, b) => a + b, 0);
 }
 
 function checkType(comp, cols) {

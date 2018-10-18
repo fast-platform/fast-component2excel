@@ -1,5 +1,5 @@
 import { getShape } from './getShape';
-import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
+import expandColumns from './expandColumns';
 import convertLayoutToExcelCoord from './convertLayoutToExcelCoord';
 
 function getDimensions(layout) {
@@ -22,6 +22,9 @@ async function getComponents(components) {
     }
 
     if (comp.hasOwnProperty('columns')) {
+      for (const col of comp.columns) {
+        col.type = 'column';
+      }
       shape.columns = await getComponents(comp.columns);
     }
 
@@ -45,53 +48,6 @@ async function getRowComponents(rows) {
   return calculatedRows;
 }
 
-async function expandColumns(layout, maxCols) {
-  for (const comp of layout) {
-    comp.shape.cols = maxCols;
-
-    if (comp.type === 'fieldset' | comp.type === 'panel' | comp.type === 'editgrid') {
-      await expandColumns(comp.components, maxCols - BaseLayoutComponent.marginLength);
-    } else if (comp.type === 'datagrid') {
-      const divisible = (maxCols - BaseLayoutComponent.marginLength) % comp.components.length;
-      let length = maxCols - BaseLayoutComponent.marginLength;
-
-      if (divisible !== 0) {
-        comp.extraPadding = divisible;
-        length = length - divisible;
-      }
-      await expandColumns(comp.components, length / comp.components.length);
-    } else if (comp.type === 'columns') {
-      const divisible = (maxCols - BaseLayoutComponent.marginLength) % comp.columns.length;
-      let length = maxCols - BaseLayoutComponent.marginLength;
-
-      if (divisible !== 0) {
-        comp.extraPadding = divisible;
-        length = length - divisible;
-      }
-
-      await expandColumns(comp.columns, length / comp.columns.length);
-    } else if (comp.type === 'table') {
-      console.log(maxCols);
-      for (const row of comp.rows) {
-        const divisible = (maxCols - BaseLayoutComponent.marginLength) % row.length;
-        let length = maxCols - BaseLayoutComponent.marginLength;
-
-        if (divisible !== 0) {
-          comp.extraPadding = divisible;
-          length = length - divisible;
-        }
-
-        for (const cell of row) {
-          // console.log(cell.components);
-          await expandColumns(cell.components, length / row.length);
-        }
-      }
-    } else if (comp.hasOwnProperty('components')) {
-      await expandColumns(comp.components, maxCols);
-    }
-  }
-}
-
 export default async function buildLayout(json) {
   let form = [];
   let layout = {};
@@ -106,6 +62,9 @@ export default async function buildLayout(json) {
     }
 
     if (comp.hasOwnProperty('columns')) {
+      for (const col of comp.columns) {
+        col.type = 'column';
+      }
       shape.columns = await getComponents(comp.columns);
     }
 

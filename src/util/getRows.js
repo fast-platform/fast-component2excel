@@ -36,6 +36,7 @@ function checkType(comp, rows) {
   if (
     (comp.type !== 'datagrid') &
     (comp.type !== 'columns') &
+    (comp.type !== 'column') &
     (comp.type !== 'table') &
     (comp.type !== 'editgrid') &
     (comp.type !== 'fieldset')
@@ -48,6 +49,8 @@ function checkType(comp, rows) {
       rows = BaseLayoutComponent.marginWidth + getRows(comp.components, rows);
     } else if (comp.type === 'columns') {
       rows = rows + BaseLayoutComponent.marginWidth + countColumnObjectRows(comp.columns);
+    } else if (comp.type === 'column') {
+      rows = rows + getRows(comp.components, rows);
     } else if (comp.type === 'table') {
       rows = rows + BaseLayoutComponent.marginWidth + countTableObjectRows(comp.rows);
     } else if (comp.type === 'fieldset') {
