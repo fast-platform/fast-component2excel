@@ -4,7 +4,7 @@ import BaseLayoutComponent from '../BaseLayoutComponent/BaseLayoutComponent';
 export default stampit(BaseLayoutComponent, {
   methods: {
     render(sheet) {
-      console.log('render FieldsetComponent', this.position);
+      console.log('render TableComponent', this.position);
     }
   }
 });

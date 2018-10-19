@@ -1,7 +1,7 @@
 import { rangeStringFormatter } from './convertLayoutToExcelCoord';
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
 
-export default async function positionBuilder(component, previousComponent, type) {
+export default async function positionBuilder(component, previousComponent, type, tableParent = undefined) {
   let position = {};
 
   const padding = previousComponent.hasOwnProperty('extraPadding') ?
@@ -51,6 +51,21 @@ export default async function positionBuilder(component, previousComponent, type
           previousComponent.position.col + (BaseLayoutComponent.marginLength + padding) / 2,
           previousComponent.position.row + BaseLayoutComponent.marginWidth / 2 + component.shape.rows - 1,
           previousComponent.position.col + (BaseLayoutComponent.marginLength + padding) / 2 + component.shape.cols - 1
+        )
+      };
+      break;
+
+    case 'firstInRow':
+      const tablePadding = tableParent.extraPadding ? tableParent.extraPadding : 0;
+
+      position = {
+        row: previousComponent.position.row + previousComponent.shape.rows,
+        col: tableParent.position.col + (BaseLayoutComponent.marginLength + tablePadding) / 2,
+        range: rangeStringFormatter(
+          previousComponent.position.row + previousComponent.shape.rows,
+          tableParent.position.col + (BaseLayoutComponent.marginLength + tablePadding) / 2,
+          previousComponent.position.row + previousComponent.shape.rows + component.shape.rows - 1,
+          tableParent.position.col + (BaseLayoutComponent.marginLength + tablePadding) / 2 + component.shape.cols - 1
         )
       };
       break;

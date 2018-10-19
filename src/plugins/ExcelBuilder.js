@@ -3,19 +3,16 @@ import XlsxPopulate from 'xlsx-populate';
 import Download from 'fast-downloads';
 
 // import TextFieldComponent from '../components/TextFieldComponent/TextFieldComponent';
+import ComponentFactory from '../components/ComponentFactory';
 
 const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 export default stampit({
   props: {
-    json: {},
-    shape: [],
-    range: []
+    layout: {}
   },
-  init({json = this.json, shape = this.shape, range = this.range}) {
-    this.json = json;
-    this.shape = shape;
-    this.range = range;
+  init({layout = this.layout}) {
+    this.layout = layout;
   },
   methods: {
     async buildWorkbook() {
@@ -23,7 +20,7 @@ export default stampit({
         .then(workbook => {
           const sheet = workbook.sheet(0);
 
-          for (const comp of this.json.components) {
+          for (const comp of this.layout.components) {
             this.renderComponent(comp, sheet);
           }
           // Modify the workbook.
@@ -33,7 +30,7 @@ export default stampit({
           workbook.outputAsync().then((blob) => {
             Download.file({
               content: blob,
-              fileName: 'out.xlsx',
+              fileName: 'form.xlsx',
               mimeType: MIME_TYPE
             }).then(() => {
               return true;
@@ -41,15 +38,8 @@ export default stampit({
           });
         });
     },
-    renderComponent(c, sheet) {
-      const value = [
-        ['Label'],
-        ['']
-      ];
-
-      sheet.cell('A1').value(value);
-
-      return null;
+    renderComponent(comp, sheet) {
+      ComponentFactory(comp).render(sheet);
     }
   }
 });

@@ -42,7 +42,11 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
     } else if (parentComponent.type === 'columns') {
       component.position = await positionBuilder(component, previousComponent, 'aside');
     } else if (parentComponent.type === 'table') {
-      component.position = await positionBuilder(component, previousComponent, 'aside');
+      if (!tableFirstInRow) {
+        component.position = await positionBuilder(component, previousComponent, 'aside');
+      } else {
+        component.position = await positionBuilder(component, previousComponent, 'firstInRow', parentComponent);
+      }
     }
   }
 
@@ -68,7 +72,6 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
     for (const row of component.rows) {
       tableFirstInRow = true;
       for (const cell of row) {
-        console.log(tableFirstInRow);
         previousComponent = await convertComponentToExcelCoord(cell, previousComponent, component, tableFirstInRow);
         tableFirstInRow = false;
       }

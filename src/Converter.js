@@ -9,18 +9,13 @@ export default stampit({
 
       console.log(layout);
 
-      const range = '';
-      const shape = '';
-
-      // console.log(range);
-
-      const workbook = await this.toExcel(json, shape, range);
+      const workbook = await this.toExcel(layout);
 
       return workbook;
     },
 
-    async toExcel(json, shape, range) {
-      const XlsxBuilder = ExcelBuilder({json, shape, range});
+    async toExcel(layout) {
+      const XlsxBuilder = ExcelBuilder({layout});
       const workbook = await XlsxBuilder.buildWorkbook();
 
       return workbook;
