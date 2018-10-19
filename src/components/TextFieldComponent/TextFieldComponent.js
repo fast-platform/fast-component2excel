@@ -21,16 +21,13 @@ export default stampit(BaseComponent, {
   methods: {
     render(sheet) {
       const r = sheet.range(this.position.range);
-      const startCell = r.startCell();
 
       console.log(r);
 
       /**
        * Description
        */
-      if (this.description) {
-        startCell.relativeCell(this.shape.rows - 1, 1).value(this.description);
-      }
+      this.setDescription(r);
 
       /**
        * Label
@@ -52,6 +49,11 @@ export default stampit(BaseComponent, {
        */
       r.style({fill: 'E7E6E6'}).forEach(this.setOutsideBorder);
 
+    },
+    setDescription(r) {
+      if (this.description) {
+        r.startCell().relativeCell(this.shape.rows - 1, 1).value(this.description);
+      }
     },
     setInputField(r) {
     },
