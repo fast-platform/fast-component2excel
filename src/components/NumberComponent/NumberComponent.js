@@ -1,10 +1,18 @@
 import stampit from '@stamp/it';
-import BaseComponent from '../BaseComponent/BaseComponent';
+import TextFieldComponent from '../TextFieldComponent/TextFieldComponent';
 
-export default stampit(BaseComponent, {
+export default stampit(TextFieldComponent, {
   methods: {
-    render(sheet) {
-      console.log('render NumberComponent', this.position);
+    setValidation() {
+      this.inputField.dataValidation({
+        type: 'custom',
+        showErrorMessage: true,
+        error: this.errorLabel,
+        errorTitle: 'Incorrect type of value',
+        formula1: `ISNUMBER(${this.inputField.address()})`
+      });
+
+      console.log(this.inputField.dataValidation());
     }
   }
 });
