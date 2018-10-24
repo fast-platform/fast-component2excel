@@ -1,5 +1,12 @@
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
 
+function stretchInRatio(max, i, array) {
+  const upper = max * array[i];
+
+  const lower = array.reduce((a, b) => a + b, 0);
+
+  return (upper / lower) | 0;
+}
 export default async function expandColumns(layout, maxCols) {
   for (const comp of layout) {
     comp.shape.cols = maxCols;
@@ -26,6 +33,7 @@ export default async function expandColumns(layout, maxCols) {
 
       await expandColumns(comp.columns, length / comp.columns.length); // probablemente mismo problema
     } else if (comp.type === 'table') {
+      console.log(comp.shape.ratios);
       for (const row of comp.rows) {
         let length = maxCols - BaseLayoutComponent.marginLength;
         const divisible = length % row.length;
@@ -35,8 +43,8 @@ export default async function expandColumns(layout, maxCols) {
           length = length - divisible;
         }
 
-        for (const cell of row) {
-          await expandColumns(cell.components, length / row.length); // problema acá
+        for (const [i, cell] of row.entries()) {
+          await expandColumns(cell.components, stretchInRatio(length, i, comp.shape.ratios)); // problema acá
         }
       }
     } else if (comp.hasOwnProperty('components')) {
