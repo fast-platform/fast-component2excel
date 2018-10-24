@@ -14,7 +14,7 @@ export function getRatios(comp, first = true) {
     let maxs = [];
 
     for (let index = 0; index < comp.rows[0].length; index++) {
-      const max = comp.rows.reduce((a, row) => Math.max(a, getColumns(row[index].components[0])), 0);
+      const max = comp.rows.reduce((a, row) => Math.max(a, ...row[index].components.map(c => getColumns(c))), 0);
 
       maxs.push(max);
     }
