@@ -14,7 +14,7 @@ export default async function expandColumns(layout, maxCols) {
         comp.extraPadding = divisible;
         length = length - divisible;
       }
-      await expandColumns(comp.components, length / comp.components.length);
+      await expandColumns(comp.components, length / comp.components.length); // probablemente mismo problema
     } else if (comp.type === 'columns') {
       const divisible = (maxCols - BaseLayoutComponent.marginLength) % comp.columns.length;
       let length = maxCols - BaseLayoutComponent.marginLength;
@@ -24,11 +24,11 @@ export default async function expandColumns(layout, maxCols) {
         length = length - divisible;
       }
 
-      await expandColumns(comp.columns, length / comp.columns.length);
+      await expandColumns(comp.columns, length / comp.columns.length); // probablemente mismo problema
     } else if (comp.type === 'table') {
       for (const row of comp.rows) {
-        const divisible = (maxCols - BaseLayoutComponent.marginLength) % row.length;
         let length = maxCols - BaseLayoutComponent.marginLength;
+        const divisible = length % row.length;
 
         if (divisible !== 0) {
           comp.extraPadding = divisible;
@@ -36,7 +36,7 @@ export default async function expandColumns(layout, maxCols) {
         }
 
         for (const cell of row) {
-          await expandColumns(cell.components, length / row.length);
+          await expandColumns(cell.components, length / row.length); // problema acá
         }
       }
     } else if (comp.hasOwnProperty('components')) {
