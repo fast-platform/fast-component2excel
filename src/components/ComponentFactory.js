@@ -8,6 +8,7 @@ import EditgridComponent from './EditgridComponent/EditgridComponent';
 import TableComponent from './TableComponent/TableComponent';
 import EmailComponent from './EmailComponent/EmailComponent';
 import PasswordComponent from './PasswordComponent/PasswordComponent';
+import SelectComponent from './SelectComponent/SelectComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -37,6 +38,10 @@ export default function ComponentFactory(component) {
 
     case 'password':
       return PasswordComponent({component: component});
+
+    case 'select':
+    case 'radio':
+      return SelectComponent({component: component});
 
     default:
       return BaseComponent({component: component});

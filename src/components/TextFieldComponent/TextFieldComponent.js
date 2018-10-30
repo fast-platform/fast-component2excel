@@ -21,6 +21,7 @@ export default stampit(BaseComponent, {
     this.description = component.description;
     this.errorLabel = component.errorLabel;
     this.validate = component.validate;
+    this.values = component.data && component.data.values || component.values;
   },
   methods: {
     render(sheet) {

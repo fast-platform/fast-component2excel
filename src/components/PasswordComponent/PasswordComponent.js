@@ -3,7 +3,7 @@ import TextFieldComponent from '../TextFieldComponent/TextFieldComponent';
 
 export default stampit(TextFieldComponent, {
   methods: {
-    setValidation() {
+    setFormat() {
       this.inputField.style('numberFormat', ';;;**');
     }
   }
