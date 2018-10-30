@@ -56,6 +56,11 @@ export default stampit(BaseComponent, {
        */
       this.setValidation();
 
+      /**
+       * format
+       */
+      this.setFormat();
+
     },
     setDescription(r) {
       if (this.description) {
@@ -131,6 +136,8 @@ export default stampit(BaseComponent, {
       }
     },
     setValidation() {
+    },
+    setFormat() {
     }
   }
 });

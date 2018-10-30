@@ -7,6 +7,7 @@ import ColumnsComponent from './ColumnsComponent/ColumnsComponent';
 import EditgridComponent from './EditgridComponent/EditgridComponent';
 import TableComponent from './TableComponent/TableComponent';
 import EmailComponent from './EmailComponent/EmailComponent';
+import PasswordComponent from './PasswordComponent/PasswordComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -33,6 +34,9 @@ export default function ComponentFactory(component) {
 
     case 'email':
       return EmailComponent({component: component});
+
+    case 'password':
+      return PasswordComponent({component: component});
 
     default:
       return BaseComponent({component: component});
