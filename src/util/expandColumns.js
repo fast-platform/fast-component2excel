@@ -6,7 +6,6 @@ function stretchInRatio(max, i, array) {
 
   const lower = sumArray(array);
 
-  console.log((upper / lower), upper, lower, array[i]);
   return (upper / lower) | 0;
 }
 
@@ -48,11 +47,13 @@ export default function expandColumns(layout, maxCols) {
         for (const [i, cell] of row.entries()) {
           const tableCols = stretchInRatio(length, i, comp.shape.ratios);
 
-          console.log(tableCols);
-
           expandColumns(cell.components, tableCols); // problema acá
           cell.shape.cols = cell.components.reduce((a, b) => Math.max(b.shape.cols, a), 0);
           cell.shape.rows = cell.components.reduce((a, b) => b.shape.rows + a, 0);
+          cell.components.shape = {
+            rows: cell.shape.rows,
+            cols: cell.shape.cols
+          };
         }
       }
     } else if (comp.hasOwnProperty('components')) {

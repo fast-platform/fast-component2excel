@@ -7,17 +7,6 @@ import ComponentFactory from '../components/ComponentFactory';
 
 const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-function hasChildrens(component, callback, sheet) {
-  if (component.type === 'table') {
-    component.rows.forEach(columns => columns.forEach(cell => {
-      let modified = { ...cell.components[0], shape: cell.shape, position: cell.position };
-
-      callback(modified, sheet);
-    }));
-
-  }
-}
-
 export default stampit({
   props: {
     layout: {}
@@ -51,9 +40,16 @@ export default stampit({
         });
     },
     renderComponent(comp, sheet) {
-      // console.log(comp);
       ComponentFactory(comp).render(sheet);
-      hasChildrens(comp, this.renderComponent, sheet);
+      this.hasChildrens(comp, sheet);
+    },
+    hasChildrens(component, sheet) {
+      if (component.type === 'table') {
+        component.rows.forEach(columns => columns.forEach(cell => {
+          cell.components.forEach(comp => this.renderComponent(comp, sheet));
+        }));
+
+      }
     }
   }
 });
