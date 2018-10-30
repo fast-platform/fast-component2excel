@@ -50,6 +50,10 @@ export default stampit({
         }));
       } else if (component.type === 'fieldset') {
         component.components.forEach(comp => this.renderComponent(comp, sheet));
+      } else if (component.type === 'columns') {
+        component.columns.forEach(column => column.components.forEach(comp => {
+          this.renderComponent(comp, sheet);
+        }));
       }
     }
   }
