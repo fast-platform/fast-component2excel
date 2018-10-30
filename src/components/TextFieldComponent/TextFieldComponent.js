@@ -13,6 +13,7 @@ export default stampit(BaseComponent, {
     validate: {}
   },
   init({component}) {
+    if (component.description === undefined) component.description = '';
     this.label = component.label;
     this.labelPosition = component.labelPosition;
     this.prefix = component.prefix;

@@ -1,7 +1,7 @@
 import { rangeStringFormatter } from './convertLayoutToExcelCoord';
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
 
-export default async function positionBuilder(component, previousComponent, type, tableParent = undefined) {
+export default function positionBuilder(component, previousComponent, type, tableParent = undefined) {
   let position = {};
 
   const padding = previousComponent.hasOwnProperty('extraPadding') ?

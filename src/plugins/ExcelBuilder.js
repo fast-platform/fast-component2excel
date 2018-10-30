@@ -13,6 +13,7 @@ export default stampit({
   },
   init({layout = this.layout}) {
     this.layout = layout;
+    this.renderComponent = this.renderComponent.bind(this);
   },
   methods: {
     async buildWorkbook() {
@@ -40,6 +41,15 @@ export default stampit({
     },
     renderComponent(comp, sheet) {
       ComponentFactory(comp).render(sheet);
+      this.hasChildrens(comp, sheet);
+    },
+    hasChildrens(component, sheet) {
+      if (component.type === 'table') {
+        component.rows.forEach(columns => columns.forEach(cell => {
+          cell.components.forEach(comp => this.renderComponent(comp, sheet));
+        }));
+
+      }
     }
   }
 });
