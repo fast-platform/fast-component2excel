@@ -19,15 +19,15 @@ export function rangeStringFormatter(row1, col1, row2, col2) {
   return rowColToExcel(row1, col1) + ':' + rowColToExcel(row2, col2);
 }
 
-async function convertComponentToExcelCoord(component, previousComponent, parentComponent, tableFirstInRow = false) {
+function convertComponentToExcelCoord(component, previousComponent, parentComponent, tableFirstInRow = false) {
   if (previousComponent === parentComponent) {
     if (previousComponent.type === 'form') {
-      component.position = await positionBuilder(component, previousComponent, 'firstInForm');
+      component.position = positionBuilder(component, previousComponent, 'firstInForm');
     } else {
       const style = (parentComponent.type === 'column') ?
         'firstInColumn' : 'firstInLayout';
 
-      component.position = await positionBuilder(component, previousComponent, style);
+      component.position = positionBuilder(component, previousComponent, style);
     }
   } else {
     if (
@@ -36,16 +36,16 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
       (parentComponent.type !== 'panel') &
       (parentComponent.type !== 'table')
     ) {
-      component.position = await positionBuilder(component, previousComponent, 'below');
+      component.position = positionBuilder(component, previousComponent, 'below');
     } else if (parentComponent.type === 'datagrid') {
-      component.position = await positionBuilder(component, previousComponent, 'aside');
+      component.position = positionBuilder(component, previousComponent, 'aside');
     } else if (parentComponent.type === 'columns') {
-      component.position = await positionBuilder(component, previousComponent, 'aside');
+      component.position = positionBuilder(component, previousComponent, 'aside');
     } else if (parentComponent.type === 'table') {
       if (!tableFirstInRow) {
-        component.position = await positionBuilder(component, previousComponent, 'aside');
+        component.position = positionBuilder(component, previousComponent, 'aside');
       } else {
-        component.position = await positionBuilder(component, previousComponent, 'firstInRow', parentComponent);
+        component.position = positionBuilder(component, previousComponent, 'firstInRow', parentComponent);
       }
     }
   }
@@ -59,12 +59,12 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
   ) {
     previousComponent = component;
     for (const comp of component.components) {
-      previousComponent = await convertComponentToExcelCoord(comp, previousComponent, component);
+      previousComponent = convertComponentToExcelCoord(comp, previousComponent, component);
     }
   } else if (component.type === 'columns') {
     previousComponent = component;
     for (const col of component.columns) {
-      previousComponent = await convertComponentToExcelCoord(col, previousComponent, component);
+      previousComponent = convertComponentToExcelCoord(col, previousComponent, component);
     }
   } else if (component.type === 'table') {
     previousComponent = component;
@@ -72,7 +72,7 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
     for (const row of component.rows) {
       tableFirstInRow = true;
       for (const cell of row) {
-        previousComponent = await convertComponentToExcelCoord(
+        previousComponent = convertComponentToExcelCoord(
           cell, previousComponent, component, tableFirstInRow);
         tableFirstInRow = false;
         // cell.components.forEach(async cellComponent => {
@@ -89,13 +89,13 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
 }
 
 export default async function convertLayoutToExcelCoord(layout) {
-  layout.position = await positionBuilder(layout, {}, 'base');
+  layout.position = positionBuilder(layout, {}, 'base');
 
   let previousComponent = layout;
   const parentComponent = layout;
 
   for (const comp of layout.components) {
-    previousComponent = await convertComponentToExcelCoord(comp, previousComponent, parentComponent);
+    previousComponent = convertComponentToExcelCoord(comp, previousComponent, parentComponent);
   }
 
   return layout;

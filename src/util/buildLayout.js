@@ -11,25 +11,25 @@ function getDimensions(layout) {
   };
 }
 
-async function getComponents(components) {
+function getComponents(components) {
   const array = [];
 
   for (const comp of components) {
-    const shape = await getShape(comp);
+    const shape = getShape(comp);
 
     if (comp.hasOwnProperty('components')) {
-      shape.components = await getComponents(comp.components);
+      shape.components = getComponents(comp.components);
     }
 
     if (comp.hasOwnProperty('columns')) {
       for (const col of comp.columns) {
         col.type = 'column';
       }
-      shape.columns = await getComponents(comp.columns);
+      shape.columns = getComponents(comp.columns);
     }
 
     if (comp.type === 'table') {
-      shape.rows = await getRowComponents(comp.rows);
+      shape.rows = getRowComponents(comp.rows);
     }
 
     array.push(shape);
@@ -38,38 +38,38 @@ async function getComponents(components) {
   return array;
 }
 
-async function getRowComponents(rows) {
+function getRowComponents(rows) {
   const calculatedRows = [];
 
   for (const row of rows) {
-    calculatedRows.push(await getComponents(row));
+    calculatedRows.push(getComponents(row));
   }
 
   return calculatedRows;
 }
 
-export default async function buildLayout(json) {
+export default function buildLayout(json) {
   let form = [];
   let layout = {};
 
   for (const comp of json.components) {
     if (comp.type === 'button') break;
 
-    const shape = await getShape(comp);
+    const shape = getShape(comp);
 
     if (comp.hasOwnProperty('components')) {
-      shape.components = await getComponents(comp.components);
+      shape.components = getComponents(comp.components);
     }
 
     if (comp.hasOwnProperty('columns')) {
       for (const col of comp.columns) {
         col.type = 'column';
       }
-      shape.columns = await getComponents(comp.columns);
+      shape.columns = getComponents(comp.columns);
     }
 
     if (comp.type === 'table') {
-      shape.rows = await getRowComponents(comp.rows);
+      shape.rows = getRowComponents(comp.rows);
     }
 
     form.push(shape);
@@ -79,9 +79,8 @@ export default async function buildLayout(json) {
 
   layout.type = 'form';
 
-  console.log(layout);
   expandColumns(layout.components, layout.shape.cols);
-  await convertLayoutToExcelCoord(layout);
+  convertLayoutToExcelCoord(layout);
 
   return layout;
 }

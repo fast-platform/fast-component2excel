@@ -5,7 +5,7 @@ import stampit from '@stamp/it';
 export default stampit({
   methods: {
     async convertJsonToFile(json) {
-      const layout = await buildLayout(json);
+      const layout = buildLayout(json);
 
       console.log(layout);
 
