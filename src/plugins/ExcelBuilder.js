@@ -48,7 +48,8 @@ export default stampit({
         component.rows.forEach(columns => columns.forEach(cell => {
           cell.components.forEach(comp => this.renderComponent(comp, sheet));
         }));
-
+      } else if (component.type === 'fieldset') {
+        component.components.forEach(comp => this.renderComponent(comp, sheet));
       }
     }
   }
