@@ -14,7 +14,7 @@ export default stampit({
   },
   methods: {
     render(sheet) {
-      console.log('render baseComponent');
+      // console.log('render baseComponent');
     },
     setOutsideBorder(...args) {
       const [cell, range] = [args[0], args[3]];
