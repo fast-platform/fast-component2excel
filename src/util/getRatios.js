@@ -4,13 +4,7 @@
 import { getColumns } from './getColumns';
 
 export function getRatios(comp, first = true) {
-  if (
-    (comp.type !== 'table') &
-    (comp.type !== 'columns') &
-    (comp.type !== 'datagrid')
-  ) {
-    return getColumns(comp);
-  } else if (comp.type === 'table') {
+  if (comp.type === 'table') {
     let maxs = [];
 
     for (let index = 0; index < comp.rows[0].length; index++) {

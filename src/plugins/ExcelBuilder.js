@@ -7,12 +7,24 @@ import ComponentFactory from '../components/ComponentFactory';
 
 const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
+function hasChildrens(component, callback, sheet) {
+  if (component.type === 'table') {
+    component.rows.forEach(columns => columns.forEach(cell => {
+      let modified = { ...cell.components[0], shape: cell.shape, position: cell.position };
+
+      callback(modified, sheet);
+    }));
+
+  }
+}
+
 export default stampit({
   props: {
     layout: {}
   },
   init({layout = this.layout}) {
     this.layout = layout;
+    this.renderComponent = this.renderComponent.bind(this);
   },
   methods: {
     async buildWorkbook() {
@@ -39,7 +51,9 @@ export default stampit({
         });
     },
     renderComponent(comp, sheet) {
+      // console.log(comp);
       ComponentFactory(comp).render(sheet);
+      hasChildrens(comp, this.renderComponent, sheet);
     }
   }
 });

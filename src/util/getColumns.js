@@ -31,7 +31,7 @@ function countTableCols(rows) {
     let colsPerRow = 0;
 
     for (const cell of row) {
-      colsPerRow = colsPerRow + getColumns(cell.components);
+      colsPerRow += getColumns(cell.components);
     }
 
     maxCols.push(colsPerRow);

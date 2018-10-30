@@ -72,8 +72,16 @@ async function convertComponentToExcelCoord(component, previousComponent, parent
     for (const row of component.rows) {
       tableFirstInRow = true;
       for (const cell of row) {
-        previousComponent = await convertComponentToExcelCoord(cell, previousComponent, component, tableFirstInRow);
+        previousComponent = await convertComponentToExcelCoord(
+          cell, previousComponent, component, tableFirstInRow);
         tableFirstInRow = false;
+        // cell.components.forEach(async cellComponent => {
+        //   previousComponent = await convertComponentToExcelCoord(
+        //     cellComponent, previousComponent, component, tableFirstInRow
+        //   );
+        //   tableFirstInRow = false;
+        // });
+
       }
     }
   }

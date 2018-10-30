@@ -79,7 +79,8 @@ export default async function buildLayout(json) {
 
   layout.type = 'form';
 
-  await expandColumns(layout.components, layout.shape.cols);
+  console.log(layout);
+  expandColumns(layout.components, layout.shape.cols);
   await convertLayoutToExcelCoord(layout);
 
   return layout;
