@@ -6,6 +6,7 @@ import DatagridComponent from './DatagridComponent/DatagridComponent';
 import ColumnsComponent from './ColumnsComponent/ColumnsComponent';
 import EditgridComponent from './EditgridComponent/EditgridComponent';
 import TableComponent from './TableComponent/TableComponent';
+import EmailComponent from './EmailComponent/EmailComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -29,6 +30,9 @@ export default function ComponentFactory(component) {
 
     case 'table':
       return TableComponent({component: component});
+
+    case 'email':
+      return EmailComponent({component: component});
 
     default:
       return BaseComponent({component: component});
