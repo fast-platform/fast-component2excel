@@ -53,15 +53,14 @@ export default stampit(BaseComponent, {
       this.setInputField(r);
 
       /**
-       * Validation
-       */
-      this.setValidation();
-
-      /**
        * format
        */
       this.setFormat();
 
+      /**
+       * Validation
+       */
+      this.setValidation();
     },
     setDescription(r) {
       if (this.description) {
