@@ -17,27 +17,22 @@ export default stampit({
   },
   methods: {
     async buildWorkbook() {
-      XlsxPopulate.fromBlankAsync()
-        .then(workbook => {
-          const sheet = workbook.sheet(0);
+      const workbook = await XlsxPopulate.fromBlankAsync();
+      const sheet = workbook.sheet(0);
 
-          for (const comp of this.layout.components) {
-            this.renderComponent(comp, sheet);
-          }
-          // Modify the workbook.
-          // workbook.sheet('Sheet1').cell('A1').value('This is neat!');
+      for (const comp of this.layout.components) {
+        this.renderComponent(comp, sheet);
+      }
 
-          // Write to file
-          workbook.outputAsync().then((blob) => {
-            Download.file({
-              content: blob,
-              fileName: 'form.xlsx',
-              mimeType: MIME_TYPE
-            }).then(() => {
-              return true;
-            });
-          });
-        });
+      // Write to file
+      const blob = await workbook.outputAsync();
+
+      await Download.file({
+        content: blob,
+        fileName: 'form.xlsx',
+        mimeType: MIME_TYPE
+      });
+      return true;
     },
     renderComponent(comp, sheet) {
       ComponentFactory(comp).render(sheet);
