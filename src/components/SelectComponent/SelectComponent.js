@@ -6,7 +6,7 @@ export default stampit(TextFieldComponent, {
     setValidation() {
       const values = '"' + this.values.map(({value}) => value).toString() + '"';
 
-      this.inputFielddataValidation({
+      this.inputField.dataValidation({
         type: 'list',
         showErrorMessage: true,
         error: 'Must be a member of the list',

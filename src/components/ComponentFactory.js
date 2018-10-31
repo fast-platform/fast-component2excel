@@ -9,6 +9,7 @@ import TableComponent from './TableComponent/TableComponent';
 import EmailComponent from './EmailComponent/EmailComponent';
 import PasswordComponent from './PasswordComponent/PasswordComponent';
 import SelectComponent from './SelectComponent/SelectComponent';
+import DatetimeComponent from './DatetimeComponent/DatetimeComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -42,6 +43,9 @@ export default function ComponentFactory(component) {
     case 'select':
     case 'radio':
       return SelectComponent({component: component});
+
+    case 'datetime':
+      return DatetimeComponent({component: component});
 
     default:
       return BaseComponent({component: component});
