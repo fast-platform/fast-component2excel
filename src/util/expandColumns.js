@@ -33,9 +33,10 @@ export default function expandColumns(layout, maxCols) {
         length = length - divisible;
       }
 
-      expandColumns(comp.columns, length / comp.columns.length); // probablemente mismo problema
+      expandColumns(comp.columns, length / comp.columns.length);
     } else if (comp.type === 'table') {
       for (const row of comp.rows) {
+        const rowMax = [];
         let length = maxCols - BaseLayoutComponent.marginLength;
         // const divisible = length % row.length;
 
@@ -54,7 +55,13 @@ export default function expandColumns(layout, maxCols) {
             rows: cell.shape.rows,
             cols: cell.shape.cols
           };
+          rowMax.push(cell.shape.rows);
         }
+        const maxRows = Math.max(...rowMax);
+
+        row.forEach(cell => {
+          cell.shape.rows = maxRows;
+        });
       }
     } else if (comp.hasOwnProperty('components')) {
       expandColumns(comp.components, maxCols);

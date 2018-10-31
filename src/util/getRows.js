@@ -25,8 +25,9 @@ function countTableObjectRows(rows) {
         rowMax.push(0);
       }
     }
+    const maxRows = Math.max(...rowMax);
 
-    tableRows.push(Math.max(...rowMax));
+    tableRows.push(maxRows);
   }
 
   return tableRows.reduce((a, b) => a + b, 0);
