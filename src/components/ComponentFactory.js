@@ -11,11 +11,15 @@ import PasswordComponent from './PasswordComponent/PasswordComponent';
 import SelectComponent from './SelectComponent/SelectComponent';
 import DatetimeComponent from './DatetimeComponent/DatetimeComponent';
 import DayComponent from './DayComponent/DayComponent';
+import TextareaComponent from './TextareaComponent/TextareaComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
     case 'textfield':
       return TextFieldComponent({component: component});
+
+    case 'textarea':
+      return TextareaComponent({component: component});
 
     case 'number':
       return NumberComponent({component: component});
