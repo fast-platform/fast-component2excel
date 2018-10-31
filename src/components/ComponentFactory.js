@@ -10,6 +10,7 @@ import EmailComponent from './EmailComponent/EmailComponent';
 import PasswordComponent from './PasswordComponent/PasswordComponent';
 import SelectComponent from './SelectComponent/SelectComponent';
 import DatetimeComponent from './DatetimeComponent/DatetimeComponent';
+import DayComponent from './DayComponent/DayComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -46,6 +47,9 @@ export default function ComponentFactory(component) {
 
     case 'datetime':
       return DatetimeComponent({component: component});
+
+    case 'day':
+      return DayComponent({component: component});
 
     default:
       return BaseComponent({component: component});
