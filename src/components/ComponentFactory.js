@@ -12,6 +12,7 @@ import SelectComponent from './SelectComponent/SelectComponent';
 import DatetimeComponent from './DatetimeComponent/DatetimeComponent';
 import DayComponent from './DayComponent/DayComponent';
 import TextareaComponent from './TextareaComponent/TextareaComponent';
+import CheckboxComponent from './CheckboxComponent/CheckboxComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -54,6 +55,9 @@ export default function ComponentFactory(component) {
 
     case 'day':
       return DayComponent({component: component});
+
+    case 'checkbox':
+      return CheckboxComponent({component: component});
 
     default:
       return BaseComponent({component: component});

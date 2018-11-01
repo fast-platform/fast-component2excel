@@ -1,6 +1,7 @@
 import BaseComponent from '../components/BaseComponent/BaseComponent';
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
 import isObject from './isObject';
+import CheckboxBlock from '../components/CheckboxComponent/CheckboxBlock';
 
 function countColumnObjectRows(columns) {
   let columnRows = [];
@@ -40,7 +41,8 @@ function checkType(comp, rows) {
     (comp.type !== 'column') &
     (comp.type !== 'table') &
     (comp.type !== 'editgrid') &
-    (comp.type !== 'fieldset')
+    (comp.type !== 'fieldset') &
+    (comp.type !== 'checkbox')
   ) {
     rows = rows + BaseComponent.baseWidth;
   } else {
@@ -56,6 +58,8 @@ function checkType(comp, rows) {
       rows = rows + BaseLayoutComponent.marginWidth + countTableObjectRows(comp.rows);
     } else if (comp.type === 'fieldset') {
       rows = BaseLayoutComponent.marginWidth + getRows(comp.components, rows);
+    } else if (comp.type === 'checkbox') {
+      rows = BaseLayoutComponent.marginWidth + CheckboxBlock.baseWidth;
     } else {
       rows = getRows(comp.components, rows);
     }
