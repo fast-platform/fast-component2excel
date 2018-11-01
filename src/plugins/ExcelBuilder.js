@@ -18,7 +18,7 @@ export default stampit({
   methods: {
     async buildWorkbook() {
       const workbook = await XlsxPopulate.fromBlankAsync();
-      const sheet = workbook.sheet(0);
+      const sheet = workbook.sheet(0).name('Form').gridLinesVisible(false);
 
       for (const comp of this.layout.components) {
         this.renderComponent(comp, sheet);
@@ -36,9 +36,9 @@ export default stampit({
     },
     renderComponent(comp, sheet) {
       ComponentFactory(comp).render(sheet);
-      this.hasChildrens(comp, sheet);
+      this.renderChildrens(comp, sheet);
     },
-    hasChildrens(component, sheet) {
+    renderChildrens(component, sheet) {
       if (component.type === 'table') {
         component.rows.forEach(columns => columns.forEach(cell => {
           cell.components.forEach(comp => this.renderComponent(comp, sheet));
