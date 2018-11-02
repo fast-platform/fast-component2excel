@@ -28,7 +28,7 @@ export default stampit(BaseComponent, {
       const selectRange = selectStartCell.rangeTo(selectEndCell);
 
       selectRange.merged(true)
-        .style({fill: 'ffff00', horizontalAlignment: 'center'})
+        .style({fill: 'ffffff', horizontalAlignment: 'center'})
         .forEach(this.setOutsideBorder)
         .value('    O    ')
         .dataValidation({
@@ -44,7 +44,7 @@ export default stampit(BaseComponent, {
       const labelRange = labelStartCell.rangeTo(labelEndCell);
 
       labelRange.merged(true)
-        .style({fill: 'ffffff', horizontalAlignment: 'center'})
+        .style({fill: 'ffff00', horizontalAlignment: 'center'})
         .forEach(this.setOutsideBorder)
         .value(this.label);
     }
