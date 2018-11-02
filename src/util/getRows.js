@@ -42,7 +42,8 @@ function checkType(comp, rows) {
     (comp.type !== 'table') &
     (comp.type !== 'editgrid') &
     (comp.type !== 'fieldset') &
-    (comp.type !== 'checkbox')
+    (comp.type !== 'checkbox') &
+    (comp.type !== 'selectboxes')
   ) {
     rows = rows + BaseComponent.baseWidth;
   } else {
@@ -58,7 +59,7 @@ function checkType(comp, rows) {
       rows = rows + BaseLayoutComponent.marginWidth + countTableObjectRows(comp.rows);
     } else if (comp.type === 'fieldset') {
       rows = BaseLayoutComponent.marginWidth + getRows(comp.components, rows);
-    } else if (comp.type === 'checkbox') {
+    } else if (comp.type === 'checkbox' | (comp.type === 'selectboxes')) {
       rows = BaseLayoutComponent.marginWidth + CheckboxBlock.baseWidth;
     } else {
       rows = getRows(comp.components, rows);

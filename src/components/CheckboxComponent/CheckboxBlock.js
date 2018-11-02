@@ -10,7 +10,6 @@ export default stampit(BaseComponent, {
     baseLength: 2
   },
   init({component}) {
-    console.log(component);
     this.label = component.label;
   },
   methods: {
