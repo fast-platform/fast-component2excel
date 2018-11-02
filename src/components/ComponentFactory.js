@@ -15,6 +15,7 @@ import TextareaComponent from './TextareaComponent/TextareaComponent';
 import CheckboxComponent from './CheckboxComponent/CheckboxComponent';
 import SelectBoxesComponent from './SelectBoxesComponent/SelectBoxesComponent';
 import CurrencyComponent from './CurrencyComponent/CurrencyComponent';
+import PhoneNumberComponent from './PhoneNumberComponent/PhoneNumberComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -66,6 +67,9 @@ export default function ComponentFactory(component) {
 
     case 'currency':
       return CurrencyComponent({component: component});
+
+    case 'phoneNumber':
+      return PhoneNumberComponent({component: component});
 
     default:
       return BaseComponent({component: component});
