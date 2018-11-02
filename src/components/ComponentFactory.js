@@ -16,6 +16,8 @@ import CheckboxComponent from './CheckboxComponent/CheckboxComponent';
 import SelectBoxesComponent from './SelectBoxesComponent/SelectBoxesComponent';
 import CurrencyComponent from './CurrencyComponent/CurrencyComponent';
 import PhoneNumberComponent from './PhoneNumberComponent/PhoneNumberComponent';
+import TimeComponent from './TimeComponent/TimeComponent';
+import AddressComponent from './AddressComponent/AddressComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -70,6 +72,12 @@ export default function ComponentFactory(component) {
 
     case 'phoneNumber':
       return PhoneNumberComponent({component: component});
+
+    case 'time':
+      return TimeComponent({component: component});
+
+    case 'address':
+      return AddressComponent({component: component});
 
     default:
       return BaseComponent({component: component});
