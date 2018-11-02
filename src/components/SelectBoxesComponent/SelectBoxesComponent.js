@@ -5,10 +5,13 @@ import CheckboxBlock from '../CheckboxComponent/CheckboxBlock';
 export default stampit(BaseLayoutComponent, {
   init({component}) {
     this.values = component.values;
+    this.label = component.label;
   },
   methods: {
     render(sheet) {
       const r = sheet.range(this.position.range);
+
+      r.startCell().relativeCell(0, 1).value(this.label);
 
       r.forEach(this.setOutsideBorder).style({fill: 'E7E6E6'});
       this.calculateCells(r);
