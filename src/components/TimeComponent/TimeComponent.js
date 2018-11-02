@@ -3,7 +3,7 @@ import NumberComponent from '../NumberComponent/NumberComponent';
 
 export default stampit(NumberComponent, {
   init({component}) {
-    this.format = component.format;
+    this.format = component.format; // TO-DO transform moment.js format to excel format if possible
   },
   methods: {
     setFormat() {
