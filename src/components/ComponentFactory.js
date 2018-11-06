@@ -18,6 +18,7 @@ import CurrencyComponent from './CurrencyComponent/CurrencyComponent';
 import PhoneNumberComponent from './PhoneNumberComponent/PhoneNumberComponent';
 import TimeComponent from './TimeComponent/TimeComponent';
 import AddressComponent from './AddressComponent/AddressComponent';
+import SurveyComponent from './SurveyComponent/SurveyComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -78,6 +79,9 @@ export default function ComponentFactory(component) {
 
     case 'address':
       return AddressComponent({component: component});
+
+    case 'survey':
+      return SurveyComponent({component: component});
 
     default:
       return BaseComponent({component: component});
