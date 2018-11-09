@@ -77,6 +77,13 @@ export default stampit(BaseComponent, {
       );
 
       this.inputField.merged(true).style({fill: 'ffffff', horizontalAlignment: 'left'}).forEach(this.setOutsideBorder);
+      if (this.key) {
+        const workbook = this.inputField.workbook();
+
+        workbook.definedName(this.key, this.inputField);
+        console.log(workbook.definedName(this.key)); // .definedName(this.key));
+
+      }
     },
     setPrefixSuffix(r) {
       let rowOffset = (this.description.length > 0 & this.labelPosition === 'bottom') ? 1 : 0;
