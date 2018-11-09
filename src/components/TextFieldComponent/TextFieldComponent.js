@@ -81,8 +81,6 @@ export default stampit(BaseComponent, {
         const workbook = this.inputField.workbook();
 
         workbook.definedName(this.key, this.inputField);
-        console.log(workbook.definedName(this.key)); // .definedName(this.key));
-
       }
     },
     setPrefixSuffix(r) {
