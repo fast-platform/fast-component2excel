@@ -25,6 +25,8 @@ export default stampit(BaseLayoutComponent, {
 
       this.questions.forEach(question => {
         const label = question.label;
+        const value = question.value;
+        const key = this.key + '.' + value;
         const labelPosition = 'top';
         const radioRange = start.rangeTo(end).address();
         const position = {
@@ -36,7 +38,7 @@ export default stampit(BaseLayoutComponent, {
           cols: end.columnNumber() - start.columnNumber() + 1,
           rows: end.rowNumber() - start.rowNumber() + 1
         };
-        const component = {label, position, shape, values: this.values, labelPosition};
+        const component = {label, position, shape, key, values: this.values, labelPosition};
 
         SelectComponent({ component }).render(sheet);
         start = start.relativeCell(BaseLayoutComponent.baseWidth + 1, 0);

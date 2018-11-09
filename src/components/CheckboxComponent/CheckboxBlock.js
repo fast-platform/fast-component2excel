@@ -17,6 +17,7 @@ export default stampit(BaseComponent, {
       const values = '"' + 'X,O' + '"';
 
       const r = sheet.range(this.position.range);
+      const workbook = sheet.workbook();
 
       /**
        * Styling
@@ -47,6 +48,7 @@ export default stampit(BaseComponent, {
         .style({fill: 'ffff00', horizontalAlignment: 'center'})
         .forEach(this.setOutsideBorder)
         .value(this.label);
+      workbook.definedName(this.key, selectRange);
     }
   }
 });

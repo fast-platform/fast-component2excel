@@ -48,7 +48,8 @@ export default stampit(BaseLayoutComponent, {
         col: start.columnNumber(),
         row: start.rowNumber()
       };
-      const component = {label, position, shape};
+      const key = this.key + '.' + label;
+      const component = {label, key, position, shape};
 
       CheckboxBlock({ component }).render(sheet);
     }
