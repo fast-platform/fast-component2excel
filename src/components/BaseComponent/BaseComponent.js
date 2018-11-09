@@ -7,6 +7,7 @@ export default stampit({
   init({component}) {
     this.position = component.position;
     this.shape = component.shape;
+    this.key = component.key;
   },
   statics: {
     baseWidth: 3,

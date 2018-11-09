@@ -42,7 +42,7 @@ export default stampit(BaseLayoutComponent, {
       const cols = length;
       const rows = 4;
       const shape = {cols, rows};
-      const label = value.label;
+      const label = value.value;
       const position = {
         range: range.address(),
         col: start.columnNumber(),

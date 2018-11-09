@@ -14,7 +14,7 @@ export default stampit(BaseComponent, {
   },
   methods: {
     render(sheet) {
-      const values = '"' + '    X    ,    O    ' + '"';
+      const values = '"' + 'X,O' + '"';
 
       const r = sheet.range(this.position.range);
 

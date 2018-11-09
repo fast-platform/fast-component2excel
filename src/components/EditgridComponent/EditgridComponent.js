@@ -10,7 +10,6 @@ export default stampit(BaseLayoutComponent, {
 
       r.startCell().relativeCell(0, 1 + this.extraPadding / 2).value(this.label);
 
-      console.log(this.label);
     }
   }
 });
