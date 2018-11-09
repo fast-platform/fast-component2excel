@@ -18,13 +18,14 @@ export default stampit(BaseLayoutComponent, {
       const start = range.startCell().relativeCell(CheckboxBlock.baseWidth / 2, CheckboxBlock.baseLength / 2);
       const end = range.endCell().relativeCell(CheckboxBlock.baseWidth / -2, CheckboxBlock.baseLength / -2);
       const label = this.label;
+      const key = this.key;
       const position = {
         range: start.rangeTo(end).address(),
         col: start.columnNumber(),
         row: start.rowNumber()
       };
 
-      CheckboxBlock({component: {label, position, shape}}).render(sheet);
+      CheckboxBlock({component: {label, key, position, shape}}).render(sheet);
     }
   }
 });
