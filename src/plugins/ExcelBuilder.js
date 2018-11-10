@@ -4,7 +4,7 @@ import Download from 'fast-downloads';
 
 // import TextFieldComponent from '../components/TextFieldComponent/TextFieldComponent';
 import ComponentFactory from '../components/ComponentFactory';
-import JsonBuilder, { VARIABLES_NAME } from './JsonBuilder';
+import { VARIABLES_NAME } from './JsonBuilder';
 
 const MIME_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -26,7 +26,6 @@ export default stampit({
       for (const comp of this.layout.components) {
         this.renderComponent(comp, sheet);
       }
-      console.log(JsonBuilder({ workbook }).main());
 
       // Write to file
       const blob = await workbook.outputAsync();

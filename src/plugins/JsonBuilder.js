@@ -6,7 +6,6 @@ export { VARIABLES_NAME };
 
 export default stampit({
   init({workbook}) {
-    this.data = {};
     this.workbook = workbook;
     this.checkObject = this.checkObject.bind(this);
     this.recusiveCheck = this.recusiveCheck.bind(this);
@@ -23,7 +22,7 @@ export default stampit({
         if (checkObject(object[key])) {
           data[key] = recusiveCheck(object[key]);
         } else {
-          data[key] = workbook.definedName(object[key]);
+          data[key] = workbook.definedName(object[key]).startCell().value();
         }
       }
       return data;

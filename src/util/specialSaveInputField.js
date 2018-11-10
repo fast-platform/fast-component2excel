@@ -2,7 +2,7 @@ import stampit from '@stamp/it';
 import { VARIABLES_NAME } from '../plugins/JsonBuilder';
 
 function getRandomID() {
-  return (Math.random().toString(36) + '00000000000000000').slice(2, 13) +
+  return 'ID' + (Math.random().toString(36) + '00000000000000000').slice(2, 13) +
     (Math.random().toString(36) + '00000000000000000').slice(2, 13);
 }
 export default stampit({
