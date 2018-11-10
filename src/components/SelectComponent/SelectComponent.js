@@ -1,7 +1,8 @@
 import stampit from '@stamp/it';
 import TextFieldComponent from '../TextFieldComponent/TextFieldComponent';
+import specialSaveInputField from '../../util/specialSaveInputField';
 
-export default stampit(TextFieldComponent, {
+export default stampit(TextFieldComponent, specialSaveInputField, {
   init({component}) {
     this.values = component.data && component.data.values || component.values;
   },
@@ -16,6 +17,9 @@ export default stampit(TextFieldComponent, {
         errorTitle: 'Incorrect value',
         formula1: values
       });
+      if (this.specialComponent) {
+        this.specialSaveInputField(this.inputField, this.key);
+      }
     }
   }
 });

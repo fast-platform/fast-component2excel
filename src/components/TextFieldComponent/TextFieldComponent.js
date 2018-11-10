@@ -1,5 +1,6 @@
 import stampit from '@stamp/it';
 import BaseComponent from '../BaseComponent/BaseComponent';
+import { VARIABLES_NAME } from '../../plugins/JsonBuilder';
 
 export default stampit(BaseComponent, {
   props: {
@@ -12,7 +13,7 @@ export default stampit(BaseComponent, {
     inputField: {},
     validate: {}
   },
-  init({component}) {
+  init({component, specialComponent }) {
     if (component.description === undefined) component.description = '';
     this.label = component.label;
     this.labelPosition = component.labelPosition;
@@ -21,6 +22,7 @@ export default stampit(BaseComponent, {
     this.description = component.description;
     this.errorLabel = component.errorLabel;
     this.validate = component.validate;
+    this.specialComponent = specialComponent;
   },
   methods: {
     render(sheet) {
@@ -77,10 +79,22 @@ export default stampit(BaseComponent, {
       );
 
       this.inputField.merged(true).style({fill: 'ffffff', horizontalAlignment: 'left'}).forEach(this.setOutsideBorder);
-      if (this.key) {
-        const workbook = this.inputField.workbook();
+      if (!this.specialComponent) {
+        this.saveInputField();
+      }
+    },
+    saveInputField() {
+      const workbook = this.inputField.workbook();
 
+      if (this.key) {
         workbook.definedName(this.key, this.inputField);
+        let previousData = JSON.parse(workbook.definedName(VARIABLES_NAME))[0];
+
+        previousData[this.key] = this.key;
+
+        const stringData = JSON.stringify([previousData]);
+
+        workbook.definedName(VARIABLES_NAME, stringData);
       }
     },
     setPrefixSuffix(r) {

@@ -1,7 +1,9 @@
 import stampit from '@stamp/it';
 import BaseComponent from '../BaseComponent/BaseComponent';
+import specialSaveInputField from '../../util/specialSaveInputField';
+import { VARIABLES_NAME } from '../../plugins/JsonBuilder';
 
-export default stampit(BaseComponent, {
+export default stampit(BaseComponent, specialSaveInputField, {
   props: {
     label: ''
   },
@@ -9,15 +11,16 @@ export default stampit(BaseComponent, {
     baseWidth: 2,
     baseLength: 2
   },
-  init({component}) {
+  init({component, specialComponent}) {
     this.label = component.label;
+    this.specialComponent = specialComponent;
+    this.key = component.key;
   },
   methods: {
     render(sheet) {
       const values = '"' + 'X,O' + '"';
 
       const r = sheet.range(this.position.range);
-      const workbook = sheet.workbook();
 
       /**
        * Styling
@@ -48,7 +51,21 @@ export default stampit(BaseComponent, {
         .style({fill: 'ffff00', horizontalAlignment: 'center'})
         .forEach(this.setOutsideBorder)
         .value(this.label);
-      workbook.definedName(this.key, selectRange);
+      const workbook = sheet.workbook();
+
+      if (!this.specialComponent) {
+
+        workbook.definedName(this.key, selectRange);
+        let previousData = JSON.parse(workbook.definedName(VARIABLES_NAME))[0];
+
+        previousData[this.key] = this.key;
+        const stringData = JSON.stringify([previousData]);
+
+        workbook.definedName(VARIABLES_NAME, stringData);
+      } else {
+        this.specialSaveInputField(selectRange, this.key);
+      }
+
     }
   }
 });

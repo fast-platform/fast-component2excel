@@ -8,6 +8,9 @@ export default stampit(BaseLayoutComponent, {
     this.label = component.label;
   },
   methods: {
+    specialSaveInputField() {
+      console.log(JSON.parse(this.key), 'select');
+    },
     render(sheet) {
       const r = sheet.range(this.position.range);
 
@@ -48,10 +51,10 @@ export default stampit(BaseLayoutComponent, {
         col: start.columnNumber(),
         row: start.rowNumber()
       };
-      const key = this.key + '.' + label;
+      const key = [this.key, value.value];
       const component = {label, key, position, shape};
 
-      CheckboxBlock({ component }).render(sheet);
+      CheckboxBlock({ component, specialComponent: true }).render(sheet);
     }
   }
 });
