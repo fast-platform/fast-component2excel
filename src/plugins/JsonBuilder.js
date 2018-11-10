@@ -6,7 +6,6 @@ export { VARIABLES_NAME };
 
 export default stampit({
   init({workbook}) {
-    this.data = {};
     this.workbook = workbook;
     this.checkObject = this.checkObject.bind(this);
     this.recusiveCheck = this.recusiveCheck.bind(this);
