@@ -12,6 +12,13 @@ import SelectComponent from './SelectComponent/SelectComponent';
 import DatetimeComponent from './DatetimeComponent/DatetimeComponent';
 import DayComponent from './DayComponent/DayComponent';
 import TextareaComponent from './TextareaComponent/TextareaComponent';
+import CheckboxComponent from './CheckboxComponent/CheckboxComponent';
+import SelectBoxesComponent from './SelectBoxesComponent/SelectBoxesComponent';
+import CurrencyComponent from './CurrencyComponent/CurrencyComponent';
+import PhoneNumberComponent from './PhoneNumberComponent/PhoneNumberComponent';
+import TimeComponent from './TimeComponent/TimeComponent';
+import AddressComponent from './AddressComponent/AddressComponent';
+import SurveyComponent from './SurveyComponent/SurveyComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -54,6 +61,27 @@ export default function ComponentFactory(component) {
 
     case 'day':
       return DayComponent({component: component});
+
+    case 'checkbox':
+      return CheckboxComponent({component: component});
+
+    case 'selectboxes':
+      return SelectBoxesComponent({component: component});
+
+    case 'currency':
+      return CurrencyComponent({component: component});
+
+    case 'phoneNumber':
+      return PhoneNumberComponent({component: component});
+
+    case 'time':
+      return TimeComponent({component: component});
+
+    case 'address':
+      return AddressComponent({component: component});
+
+    case 'survey':
+      return SurveyComponent({component: component});
 
     default:
       return BaseComponent({component: component});

@@ -1,5 +1,6 @@
 import BaseComponent from '../components/BaseComponent/BaseComponent';
 import BaseLayoutComponent from '../components/BaseLayoutComponent/BaseLayoutComponent';
+import CheckboxBlock from '../components/CheckboxComponent/CheckboxBlock';
 
 import isObject from './isObject';
 import sumArray from './sumArray';
@@ -46,7 +47,9 @@ function checkType(comp, cols) {
     (comp.type !== 'columns') &
     (comp.type !== 'datagrid') &
     (comp.type !== 'editgrid') &
-    (comp.type !== 'fieldset')
+    (comp.type !== 'fieldset') &
+    (comp.type !== 'checkbox') &
+    (comp.type !== 'selectboxes')
   ) {
     cols.push(BaseComponent.baseLength);
   } else {
@@ -60,6 +63,10 @@ function checkType(comp, cols) {
       cols.push(BaseLayoutComponent.marginLength + countDatagridCols(comp.components));
     } else if (comp.type === 'table') {
       cols.push(BaseLayoutComponent.marginLength + countTableCols(comp.rows));
+    } else if (comp.type === 'checkbox') {
+      cols.push(BaseLayoutComponent.marginLength + CheckboxBlock.baseLength);
+    } else if (comp.type === 'selectboxes') {
+      cols.push(BaseLayoutComponent.marginLength + comp.values.length * CheckboxBlock.baseLength);
     } else {
       cols.push(getColumns(comp.components));
     }
