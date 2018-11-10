@@ -23,7 +23,7 @@ export default stampit({
         if (checkObject(object[key])) {
           data[key] = recusiveCheck(object[key]);
         } else {
-          data[key] = workbook.definedName(object[key]);
+          data[key] = workbook.definedName(object[key]).startCell().value();
         }
       }
       return data;
