@@ -34,7 +34,7 @@ export default stampit(BaseComponent, specialSaveInputField, {
       selectRange.merged(true)
         .style({fill: 'ffffff', horizontalAlignment: 'center'})
         .forEach(this.setOutsideBorder)
-        .value('    O    ')
+        .value('O')
         .dataValidation({
           type: 'list',
           showErrorMessage: true,
