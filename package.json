@@ -1,12 +1,52 @@
 {
   "name": "fast-component2excel",
   "version": "0.0.1",
-  "description": "xl",
-  "main": "index.js",
-  "author": {
-    "name": "shelikhovskyy"
+  "description": "Library to download excel",
+  "main": "lib/fast-component2excel.js",
+  "scripts": {
+    "build": "rm -rf lib/*;webpack --env dev && webpack --env build",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "mocha --require babel-core/register --colors ./test/*.spec.js",
+    "test:watch": "mocha --require babel-core/register --colors -w ./test/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomcastro/fast-component2excel"
+  },
+  "author": "Tomas Castro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomcastro/fast-component2excel/issues"
+  },
+  "homepage": "https://github.com/tomcastro/fast-component2excel",
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-loader": "^2.0.0",
+    "jsdom": "11.11.0",
+    "jsdom-global": "3.0.2",
+    "lodash-webpack-plugin": "^0.11.5",
+    "mocha": "^5.2.0",
+    "mocha-webpack": "^1.1.0",
+    "webpack": "^4.20.2",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.1.1",
+    "yargs": "^11.0.0"
   },
   "dependencies": {
+    "@stamp/it": "^1.1.0",
+    "bluebird": "^3.5.1",
+    "fast-downloads": "^0.1.0",
     "xlsx-populate": "^1.17.0"
   }
 }
