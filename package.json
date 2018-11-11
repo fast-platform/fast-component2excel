@@ -1,6 +1,6 @@
 {
   "name": "fast-component2excel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Library to download excel",
   "main": "lib/fast-component2excel.js",
   "scripts": {
