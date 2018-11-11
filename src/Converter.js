@@ -22,11 +22,11 @@ export default stampit({
       const workbook = await XlsxBuilder.buildWorkbook();
 
       return workbook;
-    }
-  },
-  async convertExcelToJson(file) {
-    const workbook = await XlsxPopulate.fromDataAsync(file);
+    },
+    async convertExcelToJson(file) {
+      const workbook = await XlsxPopulate.fromDataAsync(file);
 
-    return JsonBuilder({ workbook }).main();
+      return JsonBuilder({ workbook }).main();
+    }
   }
 })();
