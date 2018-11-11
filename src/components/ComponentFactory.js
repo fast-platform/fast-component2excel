@@ -20,6 +20,7 @@ import TimeComponent from './TimeComponent/TimeComponent';
 import AddressComponent from './AddressComponent/AddressComponent';
 import SurveyComponent from './SurveyComponent/SurveyComponent';
 import RadioComponent from './RadioComponent/RadioComponent';
+import PanelComponent from './PanelComponent/PanelComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -34,6 +35,8 @@ export default function ComponentFactory(component) {
 
     case 'fieldset':
       return FieldsetComponent({component: component});
+    case 'panel':
+      return PanelComponent({component: component});
 
     case 'datagrid':
       return DatagridComponent({component: component});
