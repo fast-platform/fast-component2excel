@@ -4,7 +4,7 @@ import specialSaveInputField from '../../util/specialSaveInputField';
 
 export default stampit(TextFieldComponent, specialSaveInputField, {
   init({component}) {
-    this.values = component.data && component.data.values || component.values;
+    this.values = component.data && component.data.values;
   },
   methods: {
     setValidation() {
