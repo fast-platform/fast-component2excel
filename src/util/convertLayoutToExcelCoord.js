@@ -33,7 +33,6 @@ function convertComponentToExcelCoord(component, previousComponent, parentCompon
     if (
       (parentComponent.type !== 'datagrid') &
       (parentComponent.type !== 'columns') &
-      (parentComponent.type !== 'panel') &
       (parentComponent.type !== 'table')
     ) {
       component.position = positionBuilder(component, previousComponent, 'below');

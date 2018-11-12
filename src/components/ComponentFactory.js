@@ -22,6 +22,7 @@ import SurveyComponent from './SurveyComponent/SurveyComponent';
 import RadioComponent from './RadioComponent/RadioComponent';
 import PanelComponent from './PanelComponent/PanelComponent';
 import WellComponent from './WellComponent/WellComponent';
+import HiddenComponent from './HiddenComponent/HiddenComponent';
 
 export default function ComponentFactory(component) {
   switch (component.type) {
@@ -93,6 +94,9 @@ export default function ComponentFactory(component) {
 
     case 'survey':
       return SurveyComponent({component: component});
+
+    case 'hidden':
+      return HiddenComponent({component: component});
 
     default:
       return BaseComponent({component: component});

@@ -15,6 +15,7 @@ export default stampit({
   init({layout = this.layout}) {
     this.layout = layout;
     this.renderComponent = this.renderComponent.bind(this);
+    this.renderChildrens = this.renderChildrens.bind(this);
   },
   methods: {
     async buildWorkbook() {
@@ -46,7 +47,7 @@ export default stampit({
         component.rows.forEach(columns => columns.forEach(cell => {
           cell.components.forEach(comp => this.renderComponent(comp, sheet));
         }));
-      } else if (component.type === 'fieldset') {
+      } else if (component.type === 'fieldset' | component.type === 'panel') {
         component.components.forEach(comp => this.renderComponent(comp, sheet));
       } else if (component.type === 'columns') {
         component.columns.forEach(column => column.components.forEach(comp => {
