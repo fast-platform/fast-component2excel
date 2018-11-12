@@ -48,12 +48,13 @@ function checkType(comp, cols) {
     (comp.type !== 'datagrid') &
     (comp.type !== 'editgrid') &
     (comp.type !== 'fieldset') &
+    (comp.type !== 'panel') &
     (comp.type !== 'checkbox') &
     (comp.type !== 'selectboxes')
   ) {
     cols.push(BaseComponent.baseLength);
   } else {
-    if (comp.type === 'fieldset') {
+    if (comp.type === 'fieldset' | comp.type === 'panel') {
       cols.push(BaseLayoutComponent.marginLength + getColumns(comp.components));
     } else if (comp.type === 'columns') {
       cols.push(BaseLayoutComponent.marginLength + countColumnObjectCols(comp.columns));

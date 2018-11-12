@@ -14,7 +14,6 @@ export default stampit(BaseComponent, specialSaveInputField, {
   init({component, specialComponent}) {
     this.label = component.label;
     this.specialComponent = specialComponent;
-    this.key = component.key;
   },
   methods: {
     render(sheet) {
