@@ -26,7 +26,8 @@ export default stampit(BaseComponent, {
   },
   methods: {
     render(sheet) {
-      const r = sheet.range(this.position.range);
+      const { range } = this.position;
+      const r = sheet.range(range);
 
       /**
        * Styling
